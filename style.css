@@ -202,30 +202,39 @@ html, body {
   border-radius: var(--radius-md);
   padding: 10px 12px;
   margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
   box-shadow: var(--shadow-sm);
 }
 
-.inv-item-info { flex: 1; min-width: 0; }
+.inv-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 
 .inv-item-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-dark);
+  flex: 1;
+  min-width: 0;
+}
+
+.inv-item-bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inv-meta {
+  font-size: 12px;
+  color: var(--text-light);
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.inv-item-sub {
-  font-size: 11px;
-  color: var(--text-light);
-  margin-top: 1px;
-}
-
-.inv-item-sub span { margin-right: 8px; }
 
 .qty-controls {
   display: flex;
