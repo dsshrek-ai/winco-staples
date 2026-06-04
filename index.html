@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a5c2a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Staples">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Winco Staples</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- MAIN SCREEN -->
+  <div id="screen-main" class="screen active">
+    <header class="app-header">
+      <div class="header-left">
+        <span class="app-icon">🛒</span>
+        <div>
+          <h1 id="mode-title">Inventory</h1>
+          <p id="last-updated" class="last-updated"></p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-refresh" class="icon-btn" title="Refresh">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+        </button>
+        <button id="btn-add" class="icon-btn" title="Add Item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mode Tabs -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="inventory">📋 Inventory</button>
+      <button class="mode-tab" data-mode="shopping">🛒 Shopping</button>
+    </div>
+
+    <!-- Shopping total bar (shopping mode only) -->
+    <div id="shopping-bar" class="shopping-bar hidden">
+      <span id="shopping-summary"></span>
+      <button id="btn-clear-checks" class="clear-checks-btn">Clear All</button>
+    </div>
+
+    <!-- Item List -->
+    <div id="item-list" class="item-list"></div>
+
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Loading…</p>
+    </div>
+  </div>
+
+  <!-- EDIT/ADD SCREEN -->
+  <div id="screen-edit" class="screen">
+    <header class="app-header">
+      <div class="header-left">
+        <button id="btn-back-edit" class="icon-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <h1 id="edit-title">Edit Item</h1>
+      </div>
+      <div class="header-actions">
+        <button id="btn-delete" class="delete-btn hidden">Delete</button>
+        <button id="btn-save" class="save-btn">Save</button>
+      </div>
+    </header>
+    <div id="edit-content" class="edit-content"></div>
+  </div>
+
+  <!-- PIN Modal -->
+  <div id="pin-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <h2>Admin Access</h2>
+      <p>Enter PIN to continue</p>
+      <div class="pin-dots">
+        <span class="pin-dot" id="dot-0"></span>
+        <span class="pin-dot" id="dot-1"></span>
+        <span class="pin-dot" id="dot-2"></span>
+        <span class="pin-dot" id="dot-3"></span>
+      </div>
+      <div id="pin-error" class="pin-error hidden">Incorrect PIN</div>
+      <div class="pin-keypad">
+        <button class="pin-key" data-key="1">1</button>
+        <button class="pin-key" data-key="2">2</button>
+        <button class="pin-key" data-key="3">3</button>
+        <button class="pin-key" data-key="4">4</button>
+        <button class="pin-key" data-key="5">5</button>
+        <button class="pin-key" data-key="6">6</button>
+        <button class="pin-key" data-key="7">7</button>
+        <button class="pin-key" data-key="8">8</button>
+        <button class="pin-key" data-key="9">9</button>
+        <button class="pin-key pin-cancel" data-key="cancel">✕</button>
+        <button class="pin-key" data-key="0">0</button>
+        <button class="pin-key pin-delete" data-key="delete">⌫</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Banner -->
+  <div id="update-banner" class="update-banner hidden">
+    <span>🔄 New version available!</span>
+    <button id="btn-update">Update</button>
+    <button id="btn-dismiss-update" class="dismiss-update">Later</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
