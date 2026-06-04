@@ -203,27 +203,75 @@ html, body {
   padding: 8px 10px;
   margin-bottom: 5px;
   box-shadow: var(--shadow-sm);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  gap: 4px 8px;
+}
+
+.inv-item-top {
+  display: flex;
   align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .inv-item-name {
   font-size: 14px;
   font-weight: 600;
   color: var(--text-dark);
-  grid-column: 1;
-  grid-row: 1;
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.inv-item-badges {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.inv-badge-par {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-mid);
+  background: var(--gray-light);
+  padding: 2px 6px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.inv-badge-need {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.inv-badge-need.need {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.inv-badge-need.ok {
+  background: var(--green-pale);
+  color: var(--green);
+}
+
+.inv-item-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inv-meta {
+  font-size: 12px;
+  color: var(--text-light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .edit-item-btn {
-  grid-column: 2;
-  grid-row: 1;
   background: none;
   border: none;
   color: var(--gray-mid);
@@ -236,21 +284,6 @@ html, body {
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
   padding: 0;
-}
-
-.inv-item-bottom {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.inv-meta {
-  font-size: 11px;
-  color: var(--text-light);
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .qty-controls {
