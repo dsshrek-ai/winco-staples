@@ -2,7 +2,7 @@
    Winco Staples — App Logic
    ============================================ */
 
-const API_URL         = 'PASTE_YOUR_API_URL_HERE';
+const API_URL         = 'https://script.google.com/macros/s/AKfycbxYOYqfZ-Xr0-sdzuho6ASAWnJVJ6l2_I_X2XBKEMRLZOLkq10CDXXQqMsTHVNJRLLC/exec';
 const STORAGE_KEY     = 'wincoItems';
 const STORAGE_BACKUP  = 'wincoItemsBackup';
 const STORAGE_UPDATED = 'wincoLastUpdated';
