@@ -222,6 +222,16 @@ function renderShopping() {
   shoppingSummary.textContent =
     `${remaining} items · Est. $${total.toFixed(2)} · ${checked} done`;
 
+  // Add print button if not already there
+  if (!document.getElementById('btn-print')) {
+    const printBtn = document.createElement('button');
+    printBtn.id = 'btn-print';
+    printBtn.className = 'clear-checks-btn';
+    printBtn.textContent = '🖨️ Print';
+    printBtn.addEventListener('click', printShoppingList);
+    shoppingBar.appendChild(printBtn);
+  }
+
   if (shopItems.length === 0) {
     itemList.innerHTML = `<div class="empty-state">🎉 Nothing to buy!<br>Your pantry is fully stocked.</div>`;
     return;
@@ -413,6 +423,82 @@ async function confirmDelete() {
   } catch(err) {
     alert('Delete failed: ' + err.message);
   }
+}
+
+// ---- Print ----
+function printShoppingList() {
+  const shopItems = allItems
+    .map(i => ({ ...i, qtyToBuy: Math.max(0, i.par - i.onHand) }))
+    .filter(i => i.qtyToBuy > 0)
+    .sort((a, b) => a.shopSeq - b.shopSeq);
+
+  const total = shopItems.reduce((sum, i) => sum + (i.price * i.qtyToBuy), 0);
+  const now   = new Date().toLocaleDateString('en-US', { month:'numeric', day:'numeric', year:'numeric' });
+
+  let rows = '';
+  shopItems.forEach(i => {
+    const lineTotal = (i.price * i.qtyToBuy).toFixed(2);
+    rows += `<tr>
+      <td>${escHtml(i.description)}</td>
+      <td class="num">${i.qtyToBuy}</td>
+      <td class="num">$${i.price.toFixed(2)}</td>
+      <td class="num">$${lineTotal}</td>
+      <td class="check"></td>
+    </tr>`;
+  });
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Shopping List</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; margin: 20px; color: #111; }
+  h2   { font-size: 18px; margin: 0 0 2px; color: #1a5c2a; }
+  .sub { font-size: 11px; color: #888; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #1a5c2a; color: white; padding: 6px 8px; text-align: left; font-size: 12px; }
+  th.num, td.num { text-align: right; }
+  td { padding: 5px 8px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #f8f8f6; }
+  .check { width: 28px; text-align: center; border: 1px solid #ccc; border-radius: 3px; }
+  .total-row td { font-weight: bold; border-top: 2px solid #1a5c2a; padding-top: 8px; }
+  @media print {
+    body { margin: 10px; }
+    button { display: none; }
+  }
+</style>
+</head>
+<body>
+<h2>🛒 Winco Staples — Shopping List</h2>
+<div class="sub">Printed: ${now} · ${shopItems.length} items</div>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th class="num">Qty</th>
+      <th class="num">Price</th>
+      <th class="num">Total</th>
+      <th class="num">✓</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${rows}
+    <tr class="total-row">
+      <td colspan="3" style="text-align:right">Estimated Total</td>
+      <td class="num">$${total.toFixed(2)}</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>`;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  setTimeout(() => win.print(), 400);
 }
 
 // ---- PIN ----
